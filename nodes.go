@@ -53,6 +53,15 @@ func (n *Node) Container(vmid int) (*Container, error) {
 	return &c, nil
 }
 
+func (n *Node) NewContainer(t NewContainer) (string, error) {
+	var s string
+	if err := n.client.Post(fmt.Sprintf("/nodes/%s/lxc", n.Name), t, &s); err != nil {
+		return "", err
+	}
+
+	return s, nil
+}
+
 func (n *Node) Appliances() (appliances Appliances, err error) {
 	err = n.client.Get(fmt.Sprintf("/nodes/%s/aplinfo", n.Name), &appliances)
 	if err != nil {

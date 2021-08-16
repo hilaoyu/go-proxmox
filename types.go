@@ -126,16 +126,24 @@ type Time struct {
 
 type Containers []*Container
 type Container struct {
-	Name    string
-	Node    string
-	client  *Client
-	CPUs    int
-	Status  string
-	VMID    string
-	Uptime  uint64
-	MaxMem  uint64
-	MaxDisk uint64
-	MaxSwap uint64
+	Name       string
+	Node       string
+	client     *Client
+	CPUs       int
+	Status     string
+	VMID       int
+	OSTemplate string `json:"ostemplate"`
+	Uptime     uint64
+	MaxMem     uint64
+	MaxDisk    uint64
+	MaxSwap    uint64
+}
+
+type NewContainer struct {
+	Node       string `json:"node"`
+	VMID       int    `json:"vmid"`
+	OSTemplate string `json:"ostemplate"`
+	Storage    string `json:"storage"`
 }
 
 type ContainerStatuses []*ContainerStatus
