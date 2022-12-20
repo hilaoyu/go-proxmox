@@ -275,3 +275,11 @@ func (v *VirtualMachine) SnapshotRollback(name string) (task *Task, err error) {
 
 	return NewTask(upid, v.client), nil
 }
+func (v *VirtualMachine) SnapshotDelete(name string) (task *Task, err error) {
+	var upid UPID
+	if err = v.client.Delete(fmt.Sprintf("/nodes/%s/qemu/%d/snapshot/%s", v.Node, v.VMID, name), &upid); err != nil {
+		return nil, err
+	}
+
+	return NewTask(upid, v.client), nil
+}

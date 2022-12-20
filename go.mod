@@ -5,6 +5,7 @@ go 1.16
 require (
 	github.com/buger/goterm v1.0.4
 	github.com/diskfs/go-diskfs v1.2.0
+	github.com/favframework/debug v0.0.0-20150708094948-5c7e73aafb21 // indirect
 	github.com/gorilla/websocket v1.4.2
 	github.com/jinzhu/copier v0.3.4
 	github.com/magefile/mage v1.12.1
