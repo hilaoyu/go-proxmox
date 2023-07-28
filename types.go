@@ -50,11 +50,12 @@ type Version struct {
 }
 
 type VNC struct {
-	Cert   string
-	Port   StringOrInt
-	Ticket string
-	UPID   string
-	User   string
+	Cert     string
+	Port     StringOrInt
+	Ticket   string
+	UPID     string
+	User     string
+	Password string
 }
 
 type Cluster struct {

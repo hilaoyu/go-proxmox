@@ -2,6 +2,7 @@ package proxmox
 
 import (
 	"fmt"
+	"net/http"
 	"net/url"
 	"strconv"
 )
@@ -28,6 +29,22 @@ func (v *VirtualMachine) Config(options ...VirtualMachineOption) (*Task, error) 
 
 func (v *VirtualMachine) TermProxy() (vnc *VNC, err error) {
 	return vnc, v.client.Post(fmt.Sprintf("/nodes/%s/qemu/%d/termproxy", v.Node, v.VMID), nil, &vnc)
+}
+
+func (v *VirtualMachine) VncProxy() (vnc *VNC, err error) {
+	return vnc, v.client.Post(fmt.Sprintf("/nodes/%s/qemu/%d/vncproxy", v.Node, v.VMID), map[string]interface{}{"websocket": true, "generate-password": false}, &vnc)
+}
+
+func (v *VirtualMachine) VNCProxyWebsocketServeHTTP(w http.ResponseWriter, r *http.Request, responseHeader http.Header) (err error) {
+	vnc, err := v.VncProxy()
+	if nil != err {
+		return
+	}
+
+	path := fmt.Sprintf("/nodes/%s/qemu/%d/vncwebsocket?port=%d&vncticket=%s",
+		v.Node, v.VMID, vnc.Port, url.QueryEscape(vnc.Ticket))
+
+	return v.client.VNCProxyWebsocketServeHTTP(path, vnc, w, r, responseHeader)
 }
 
 // VNCWebSocket copy/paste when calling to get the channel names right
