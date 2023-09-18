@@ -745,7 +745,7 @@ type FirewallVirtualMachineOption struct {
 	LogLevelIn  string `json:"log_level_in,omitempty"`
 	LogLevelOut string `json:"log_level_out,omitempty"`
 	Macfilter   bool   `json:"macfilter,omitempty"`
-	Ntp         bool   `json:"ntp,omitempty"`
+	Ndp         bool   `json:"ndp,omitempty"`
 	PolicyIn    string `json:"policy_in,omitempty"`
 	PolicyOut   string `json:"policy_out,omitempty"`
 	Radv        bool   `json:"radv,omitempty"`
